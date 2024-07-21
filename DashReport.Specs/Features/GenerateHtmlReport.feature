@@ -12,7 +12,7 @@ Feature: Generate HTML Report (no template)
         SELECT * FROM tblExample
         """
     When the CLI is run with the arguments: `--connection "sqlite:///example.db" --query example.sql`
-    Then a file named `output.html` is created
+    Then a file named "output.html" is created
       And the file contains:
         """
         <table>
