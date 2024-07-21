@@ -1,5 +1,8 @@
 {
     "cucumberautocomplete.steps": [
         "/**/Steps/**/*.cs"
+    ],
+    "cSpell.words": [
+        "dashreport"
     ]
 }
