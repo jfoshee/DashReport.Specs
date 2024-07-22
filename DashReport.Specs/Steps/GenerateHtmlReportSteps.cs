@@ -18,7 +18,7 @@ public sealed class GenerateHtmlReportSteps
         _cliDriver = cliDriver;
     }
 
-    [Given(@"there is a SQLite file called ""(.*)""")]
+    [Given(@"there is a SQLite file called `(.*)`")]
     public void GivenThereIsASQLiteFileCalled(string databaseFileName)
     {
         _databaseFilePath = Path.Combine(Directory.GetCurrentDirectory(), databaseFileName);
@@ -59,14 +59,14 @@ public sealed class GenerateHtmlReportSteps
         connection.Close();
     }
 
-    [Given(@"there is a query file called ""(.*)"" containing the query:")]
+    [Given(@"there is a query file called `(.*)` containing the query:")]
     public void GivenThereIsAQueryFileCalledContainingTheQuery(string queryFileName, string query)
     {
         _queryFilePath = Path.Combine(Directory.GetCurrentDirectory(), queryFileName);
         File.WriteAllText(_queryFilePath, query);
     }
 
-    [Given(@"a file named ""(.*)"" does not exist")]
+    [Given(@"a file named `(.*)` does not exist")]
     public void GivenAFileNamedDoesNotExist(string fileName)
     {
         _outputFilePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
@@ -85,7 +85,7 @@ public sealed class GenerateHtmlReportSteps
         _cliDriver.Run(arguments);
     }
 
-    [Then(@"a file named ""(.*)"" is created")]
+    [Then(@"a file named `(.*)` is created")]
     public void ThenAFileNamedIsCreated(string outputFileName)
     {
         _outputFilePath = Path.Combine(Directory.GetCurrentDirectory(), outputFileName);

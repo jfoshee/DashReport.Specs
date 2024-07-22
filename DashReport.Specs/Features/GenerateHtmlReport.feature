@@ -1,19 +1,19 @@
 Feature: Generate HTML Report (no template)
 
   Scenario: Simple SQLite Table
-    Given there is a SQLite file called "example.db"
+    Given there is a SQLite file called `example.db`
       And it contains a table named `tblExample` with the following data:
         | id | name  | age |
         | 1  | Alice | 25  |
         | 2  | Bob   | 30  |
         | 3  | Carol | 35  |
-      And there is a query file called "example.sql" containing the query:
+      And there is a query file called `example.sql` containing the query:
         """
         SELECT * FROM tblExample
         """
-      And a file named "output.html" does not exist
+      And a file named `output.html` does not exist
     When the CLI is run with the arguments: `--connection "Data Source=example.db" --query-file example.sql`
-    Then a file named "output.html" is created
+    Then a file named `output.html` is created
       And the file contains:
         """
         <table>

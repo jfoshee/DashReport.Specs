@@ -8,7 +8,7 @@ CLI to generate HTML reports from SQL queries.
 
 #### Scenario: Simple SQLite Table
 
-Given that there is a SQLite file called "example.db"  
+Given that there is a SQLite file called `example.db`  
 That contains this table named `tblExample`:
 
 | id | name  | age |
@@ -17,7 +17,7 @@ That contains this table named `tblExample`:
 | 2  | Bob   | 30  |
 | 3  | Carol | 35  |
 
-And there is a query file called "example.sql"  
+And there is a query file called `example.sql`  
 That contains the query:
 ```sql
 SELECT * FROM tblExample
