@@ -12,7 +12,7 @@ Feature: Generate HTML Report (no template)
         SELECT * FROM tblExample
         """
       And a file named "output.html" does not exist
-    When the CLI is run with the arguments: `--connection "Data Source=example.db" --query example.sql`
+    When the CLI is run with the arguments: `--connection "Data Source=example.db" --query-file example.sql`
     Then a file named "output.html" is created
       And the file contains:
         """

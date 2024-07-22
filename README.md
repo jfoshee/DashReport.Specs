@@ -23,7 +23,7 @@ That contains the query:
 SELECT * FROM tblExample
 ```
 When the CLI is run with the arguments:  
-`--connection "sqlite:///example.sql" --query example.sql`
+`--connection "Data Source=example.sql" --query-file example.sql`
 
 Then a file is created named `output.html`  
 That contains:
