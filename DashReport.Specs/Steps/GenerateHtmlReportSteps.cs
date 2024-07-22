@@ -66,6 +66,16 @@ public sealed class GenerateHtmlReportSteps
         File.WriteAllText(_queryFilePath, query);
     }
 
+    [Given(@"a file named ""(.*)"" does not exist")]
+    public void GivenAFileNamedDoesNotExist(string fileName)
+    {
+        _outputFilePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+        if (File.Exists(_outputFilePath))
+        {
+            File.Delete(_outputFilePath);
+        }
+    }
+
     [When(@"the CLI is run with the arguments: `(.*)`")]
     public void WhenTheCLIIsRunWithTheArguments(string cliArguments)
     {
