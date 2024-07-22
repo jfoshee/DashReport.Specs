@@ -90,7 +90,7 @@ public sealed class GenerateHtmlReportSteps
             throw new InvalidOperationException("Output file path is not set.");
         }
 
-        var actualContent = File.ReadAllText(_outputFilePath);
+        var actualContent = File.ReadAllText(_outputFilePath).Trim();
         actualContent.Should().Be(expectedContent.Trim());
     }
 }
