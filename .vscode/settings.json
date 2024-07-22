@@ -3,6 +3,7 @@
         "/**/Steps/**/*.cs"
     ],
     "cSpell.words": [
-        "dashreport"
+        "dashreport",
+        "NVARCHAR"
     ]
 }
