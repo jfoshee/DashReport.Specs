@@ -1,4 +1,5 @@
 ﻿using System.Data.SQLite;
+using System.Data.SqlClient;
 using DashReport.Specs.Drivers;
 
 namespace DashReport.Specs.Steps;
@@ -30,8 +31,8 @@ public sealed class GenerateHtmlReportSteps
         SQLiteConnection.CreateFile(_databaseFilePath);
     }
 
-    [Given(@"it contains a table named `tblExample` with the following data:")]
-    public void GivenItContainsATableNamedTblExampleWithTheFollowingData(Table table)
+    [Given(@"the SQLite file contains a table named `tblExample` with the following data:")]
+    public void GivenTheSQLiteFileContainsATableNamedTblExampleWithTheFollowingData(Table table)
     {
         if (_databaseFilePath is null)
         {
@@ -57,6 +58,45 @@ public sealed class GenerateHtmlReportSteps
         }
 
         connection.Close();
+    }
+
+    [Given(@"there is a SqlServer database named `(.*)`")]
+    public void GivenThereIsASqlServerDatabaseNamed(string databaseName)
+    {
+        using var connection = new SqlConnection("Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True");
+        connection.Open();
+
+        using var command = connection.CreateCommand();
+        command.CommandText = $@"
+            IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{databaseName}')
+            BEGIN
+                CREATE DATABASE [{databaseName}]
+            END";
+        command.ExecuteNonQuery();
+    }
+
+    [Given(@"the SqlServer database contains a table named `tblExample` with the following data:")]
+    public void GivenTheSqlServerDatabaseContainsATableNamedTblExampleWithTheFollowingData(Table table)
+    {
+        using var connection = new SqlConnection("Server=localhost;Database=DashReportTest;Trusted_Connection=True;TrustServerCertificate=True");
+        connection.Open();
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            IF OBJECT_ID('tblExample', 'U') IS NOT NULL 
+                DROP TABLE tblExample;
+            CREATE TABLE tblExample (
+                id INT PRIMARY KEY,
+                name NVARCHAR(50),
+                age INT
+            );";
+        command.ExecuteNonQuery();
+
+        foreach (var row in table.Rows)
+        {
+            command.CommandText = $"INSERT INTO tblExample (id, name, age) VALUES ({row["id"]}, '{row["name"]}', {row["age"]});";
+            command.ExecuteNonQuery();
+        }
     }
 
     [Given(@"there is a query file called `(.*)` containing the query:")]

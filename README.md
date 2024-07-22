@@ -55,3 +55,8 @@ That contains:
   </tbody>
 </table>
 ```
+
+#### Scenario: Simple SqlServer Table
+
+Same as above, except connecting to a local SqlServer database named `DashReportTest`.  
+Use connection string `"Server=localhost;Database=DashReportTest;Trusted_Connection=True;TrustServerCertificate=True"`
